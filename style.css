@@ -1,0 +1,359 @@
+/* General Styles */
+body {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    text-align: center;
+    background-color: #e0f7fa;
+    margin: 0;
+    padding: 0;
+    background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+}
+
+body.love-theme {
+    background-color: pink;
+    background-image: url('https://www.transparenttextures.com/patterns/heart-pattern.png'); /* A pattern with hearts */
+}
+
+header {
+    background-color: #0288d1;
+    color: white;
+    padding: 1em;
+    margin-bottom: 2em;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-bottom: 4px solid #0277bd;
+}
+
+body.love-theme header {
+    background-color: #ff4081;
+    border-bottom: 4px solid #f50057;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 2em;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 1em;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #0277bd;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+body.love-theme nav ul li a {
+    color: #f50057;
+}
+
+main {
+    margin: 0 auto;
+    width: 90%;
+    max-width: 800px;
+    background-color: white;
+    padding: 2em;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    border: 2px solid #0288d1;
+}
+
+body.love-theme main {
+    border: 2px solid #ff4081;
+}
+
+.code-button-container {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+}
+
+.code-input {
+    margin-top: 10px;
+}
+
+.code-button, .code-submit {
+    background-color: #0288d1;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.code-button:hover, .code-submit:hover {
+    background-color: #0277bd;
+}
+
+body.love-theme .code-button, body.love-theme .code-submit {
+    background-color: #ff4081;
+}
+
+body.love-theme .code-button:hover, body.love-theme .code-submit:hover {
+    background-color: #f50057;
+}
+
+/* Game 1 Styles */
+.card {
+    display: inline-block;
+    width: 22%;
+    height: 100px;
+    margin: 1%;
+    background-color: #0288d1;
+    color: white;
+    font-size: 2em;
+    line-height: 100px;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    vertical-align: middle;
+    position: relative; /* Added to position number */
+}
+
+.card:hover {
+    background-color: #0277bd;
+    transform: scale(1.1);
+}
+
+body.love-theme .card {
+    background-color: #ff4081;
+}
+
+body.love-theme .card:hover {
+    background-color: #f50057;
+}
+
+/* Number overlay on card */
+.card span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2; /* Ensure it's above the heart shape */
+}
+
+/* Game 2 Styles */
+#game2-board {
+    display: grid;
+    gap: 1px;
+    justify-content: center;
+    margin: 20px auto;
+}
+
+.color {
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    opacity: 0.8;
+    border-radius: 10px;
+    background-color: #80deea;
+    transition: opacity 0.3s, transform 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.color.active {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+body.love-theme .color {
+    background-color: #ff80ab;
+}
+
+body.love-theme .color.active {
+    background-color: #f50057;
+}
+
+/* Game 4 Styles */
+#game4-board {
+    display: grid;
+    gap: 1px;
+    justify-content: center;
+    margin: 20px auto;
+}
+
+.cube {
+    width: 50px;
+    height: 50px;
+    background-color: #b0bec5;
+    cursor: pointer;
+    opacity: 0.8;
+    border-radius: 10px;
+    transition: background-color 0.3s, opacity 0.3s, transform 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cube.active {
+    background-color: #0288d1;
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.cube.wrong {
+    background-color: red;
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+body.love-theme .cube {
+    background-color: #ff80ab;
+}
+
+body.love-theme .cube.active {
+    background-color: #f50057;
+}
+
+body.love-theme .cube.wrong {
+    background-color: #d50000;
+}
+
+/* Heart Shape */
+.heart-shape {
+    width: 50px;
+    height: 50px;
+    background-color: #ff69b4; /* Single color for all hearts */
+    position: relative;
+    display: inline-block;
+    transform: rotate(-45deg);
+    margin: 5px; /* Adjusted margin to prevent overlap */
+    box-shadow: none;
+    border-radius: 0;
+    line-height: 35px; /* Centers text vertically */
+    text-align: center; /* Centers text horizontally */
+}
+
+.heart-shape:before,
+.heart-shape:after {
+    content: "";
+    background-color: inherit; /* Use the same color as the parent */
+    border-radius: 50%;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+}
+
+.heart-shape:before {
+    top: -25px;
+    left: 0;
+}
+
+.heart-shape:after {
+    left: 25px;
+    top: 0;
+}
+
+/* Hearts Background */
+.hearts-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.hearts-background .heart {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #ff69b4; /* Single color for all hearts */
+    transform: rotate(-45deg);
+}
+
+.hearts-background .heart:before,
+.hearts-background .heart:after {
+    content: "";
+    background-color: inherit; /* Use the same color as the parent */
+    border-radius: 50%;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+}
+
+.hearts-background .heart:before {
+    top: -10px;
+    left: 0;
+}
+
+.hearts-background .heart:after {
+    left: 10px;
+    top: 0;
+}
+
+/* Slider Styles */
+.slider-container {
+    margin: 20px 0;
+}
+
+.slider-container label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.slider {
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 10px;
+    background: #0288d1;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.slider:hover {
+    opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #0277bd;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #0277bd;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+body.love-theme .slider {
+    background: #ff4081;
+}
+
+body.love-theme .slider::-webkit-slider-thumb {
+    background: #f50057;
+}
+
+body.love-theme .slider::-moz-range-thumb {
+    background: #f50057;
+}
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+    .card, .color, .cube {
+        width: 40%;
+        height: 40%;
+        line-height: 2em;
+    }
+
+    nav ul li {
+        display: block;
+        margin: 10px 0;
+    }
+}

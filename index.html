@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Games</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Memory Games</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#" onclick="showGame('game1')">Game 1: Match the Pairs</a></li>
+            <li><a href="#" onclick="showGame('game2')">Game 2: Simon Says</a></li>
+            <li><a href="#" onclick="showGame('game4')">Game 3: Memory Grid</a></li>
+        </ul>
+    </nav>
+    <main id="game-container">
+        <p>Select a game to play.</p>
+    </main>
+    <div class="code-button-container">
+        <button class="code-button" onclick="showCodeInput()">Enter Code</button>
+        <div id="codeInputContainer" style="display: none;">
+            <input type="text" id="codeInput" class="code-input" placeholder="Enter code here">
+            <button class="code-submit" onclick="checkCode()">Submit</button>
+        </div>
+    </div>
+    <div id="heartsBackground" class="hearts-background"></div>
+    <script src="scripts/game1.js"></script>
+    <script src="scripts/game2.js"></script>
+    <script src="scripts/game4.js"></script>
+    <script>
+        function showGame(game) {
+            document.getElementById('game-container').innerHTML = window[game]();
+        }
+
+        function showCodeInput() {
+            document.getElementById('codeInputContainer').style.display = 'block';
+        }
+
+        function checkCode() {
+            const code = document.getElementById('codeInput').value;
+            if (code === 'I love you C') {
+                document.body.classList.add('love-theme');
+                changeShapesToHearts();
+            }
+        }
+
+        function changeShapesToHearts() {
+            const elements = document.querySelectorAll('.card, .color, .cube');
+            elements.forEach(element => {
+                element.classList.add('heart-shape');
+            });
+        }
+    </script>
+</body>
+</html>
