@@ -14,7 +14,7 @@
         <ul>
             <li><a href="#" onclick="showGame('game1')">Game 1: Match the Pairs</a></li>
             <li><a href="#" onclick="showGame('game2')">Game 2: Simon Says</a></li>
-            <li><a href="#" onclick="showGame('game4')">Game 3: Memory Grid</a></li>
+            <li><a href="#" onclick="showGame('game3')">Game 3: Memory Grid</a></li> <!-- Updated -->
         </ul>
     </nav>
     <main id="game-container">
@@ -30,7 +30,7 @@
     <div id="heartsBackground" class="hearts-background"></div>
     <script src="scripts/game1.js"></script>
     <script src="scripts/game2.js"></script>
-    <script src="scripts/game4.js"></script>
+    <script src="scripts/game3.js"></script> <!-- Updated -->
     <script>
         function showGame(game) {
             document.getElementById('game-container').innerHTML = window[game]();
@@ -57,3 +57,4 @@
     </script>
 </body>
 </html>
+

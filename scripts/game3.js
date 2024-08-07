@@ -1,36 +1,36 @@
-function game4() {
-    const highScoreStreak = localStorage.getItem('highScoreStreakGame4') || 0;
-    const currentStreak = localStorage.getItem('currentStreakGame4') || 0;
+function game3() { // Updated
+    const highScoreStreak = localStorage.getItem('highScoreStreakGame3') || 0; // Updated
+    const currentStreak = localStorage.getItem('currentStreakGame3') || 0; // Updated
     const gameHTML = `
-        <h2>Game 4: Memory Grid</h2>
-        <div>High Score Streak: <span id="highScoreGame4">${highScoreStreak}</span></div>
-        <div>Current Streak: <span id="currentStreakGame4">${currentStreak}</span></div>
+        <h2>Game 3: Memory Grid</h2> <!-- Updated -->
+        <div>High Score Streak: <span id="highScoreGame3">${highScoreStreak}</span></div> <!-- Updated -->
+        <div>Current Streak: <span id="currentStreakGame3">${currentStreak}</span></div> <!-- Updated -->
         <div class="slider-container">
-            <label for="gridSize4">Grid Size: <span id="gridSizeValue4">7</span>x<span id="gridSizeValue4">7</span></label>
-            <input type="range" id="gridSize4" class="slider" min="4" max="10" value="7">
+            <label for="gridSize3">Grid Size: <span id="gridSizeValue3">7</span>x<span id="gridSizeValue3">7</span></label> <!-- Updated -->
+            <input type="range" id="gridSize3" class="slider" min="4" max="10" value="7"> <!-- Updated -->
         </div>
         <div class="slider-container">
             <label for="numLitCubes">Number of Lit Cubes: <span id="numLitCubesValue">12</span></label>
             <input type="range" id="numLitCubes" class="slider" min="5" max="20" value="12">
         </div>
-        <div id="game4-board"></div>
-        <button id="startButton4">Start Game</button>
-        <p id="message4"></p>
+        <div id="game3-board"></div> <!-- Updated -->
+        <button id="startButton3">Start Game</button> <!-- Updated -->
+        <p id="message3"></p> <!-- Updated -->
     `;
-    setTimeout(initializeGame4, 0); // Delay to allow DOM update
+    setTimeout(initializeGame3, 0); // Delay to allow DOM update
     return gameHTML;
 }
 
-function initializeGame4() {
-    const game4Board = document.getElementById('game4-board');
-    const startButton = document.getElementById('startButton4');
-    const message = document.getElementById('message4');
-    const gridSizeSlider = document.getElementById('gridSize4');
-    const gridSizeValue = document.getElementById('gridSizeValue4');
+function initializeGame3() { // Updated
+    const game3Board = document.getElementById('game3-board'); // Updated
+    const startButton = document.getElementById('startButton3'); // Updated
+    const message = document.getElementById('message3'); // Updated
+    const gridSizeSlider = document.getElementById('gridSize3'); // Updated
+    const gridSizeValue = document.getElementById('gridSizeValue3'); // Updated
     const numLitCubesSlider = document.getElementById('numLitCubes');
     const numLitCubesValue = document.getElementById('numLitCubesValue');
-    const highScoreElement = document.getElementById('highScoreGame4');
-    const currentStreakElement = document.getElementById('currentStreakGame4');
+    const highScoreElement = document.getElementById('highScoreGame3'); // Updated
+    const currentStreakElement = document.getElementById('currentStreakGame3'); // Updated
 
     let gridSize = gridSizeSlider.value;
     let numLitCubes = numLitCubesSlider.value;
@@ -50,18 +50,18 @@ function initializeGame4() {
     startButton.addEventListener('click', startGame);
 
     function startGame() {
-        game4Board.innerHTML = '';
+        game3Board.innerHTML = '';
         const totalCubes = gridSize * gridSize;
         let litCubes = [];
         let playerSequence = [];
 
         // Create the board
-        game4Board.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
+        game3Board.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
         for (let i = 0; i < totalCubes; i++) {
             const cube = document.createElement('div');
             cube.classList.add('cube');
             cube.dataset.index = i;
-            game4Board.appendChild(cube);
+            game3Board.appendChild(cube);
         }
 
         // Randomly light up cubes
@@ -84,11 +84,11 @@ function initializeGame4() {
         }, 5000);
 
         function enablePlayerInput() {
-            game4Board.childNodes.forEach(cube => cube.addEventListener('click', handleCubeClick));
+            game3Board.childNodes.forEach(cube => cube.addEventListener('click', handleCubeClick));
         }
 
         function disablePlayerInput() {
-            game4Board.childNodes.forEach(cube => cube.removeEventListener('click', handleCubeClick));
+            game3Board.childNodes.forEach(cube => cube.removeEventListener('click', handleCubeClick));
         }
 
         function handleCubeClick(event) {
@@ -110,19 +110,19 @@ function initializeGame4() {
         }
 
         function updateStreak(won) {
-            let highScoreStreak = parseInt(localStorage.getItem('highScoreStreakGame4') || '0');
-            let currentStreak = parseInt(localStorage.getItem('currentStreakGame4') || '0');
+            let highScoreStreak = parseInt(localStorage.getItem('highScoreStreakGame3') || '0'); // Updated
+            let currentStreak = parseInt(localStorage.getItem('currentStreakGame3') || '0'); // Updated
             if (won) {
                 currentStreak++;
                 if (currentStreak > highScoreStreak) {
                     highScoreStreak = currentStreak;
-                    localStorage.setItem('highScoreStreakGame4', highScoreStreak);
+                    localStorage.setItem('highScoreStreakGame3', highScoreStreak); // Updated
                     highScoreElement.textContent = highScoreStreak;
                 }
             } else {
                 currentStreak = 0;
             }
-            localStorage.setItem('currentStreakGame4', currentStreak);
+            localStorage.setItem('currentStreakGame3', currentStreak); // Updated
             currentStreakElement.textContent = currentStreak;
         }
     }
