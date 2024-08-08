@@ -32,6 +32,7 @@ nav ul {
     padding: 0;
     margin: 0;
     margin-bottom: 2em;
+    text-align: center;
 }
 
 nav ul li {
@@ -356,8 +357,7 @@ body.love-theme .slider::-moz-range-thumb {
 @media (max-width: 600px) {
     .card, .color, .cube {
         width: calc(50% - 10px); /* Adjust for smaller screens */
-        height: 100px;
-        line-height: 2em;
+        height: calc(50% - 10px);
     }
 
     nav ul li {
