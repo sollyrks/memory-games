@@ -105,7 +105,7 @@ body.love-theme .code-button:hover, body.love-theme .code-submit:hover {
     justify-content: center;
     margin: 20px auto;
     width: 100%;
-    max-width: 100vw;
+    max-width: 90vw;
 }
 
 .card {
@@ -152,7 +152,7 @@ body.love-theme .card:hover {
     justify-content: center;
     margin: 20px auto;
     width: 100%;
-    max-width: 100vw;
+    max-width: 90vw;
 }
 
 .color {
@@ -186,7 +186,7 @@ body.love-theme .color.active {
     justify-content: center;
     margin: 20px auto;
     width: 100%;
-    max-width: 100vw;
+    max-width: 90vw;
 }
 
 .cube {
