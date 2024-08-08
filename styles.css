@@ -35,7 +35,7 @@ nav ul {
 }
 
 nav ul li {
-    display: inline;
+    display: inline-block;
     margin: 0 1em;
 }
 
@@ -226,8 +226,8 @@ body.love-theme .cube.wrong {
 
 /* Heart Shape */
 .heart-shape {
-    width: 50px;
-    height: 50px;
+    width: 100%;
+    padding-bottom: 100%;
     background-color: #ff69b4; /* Single color for all hearts */
     position: relative;
     display: inline-block;
@@ -235,8 +235,6 @@ body.love-theme .cube.wrong {
     margin: 5px; /* Adjusted margin to prevent overlap */
     box-shadow: none;
     border-radius: 0;
-    line-height: 35px; /* Centers text vertically */
-    text-align: center; /* Centers text horizontally */
 }
 
 .heart-shape:before,
@@ -245,17 +243,17 @@ body.love-theme .cube.wrong {
     background-color: inherit; /* Use the same color as the parent */
     border-radius: 50%;
     position: absolute;
-    width: 50px;
-    height: 50px;
+    width: 100%;
+    padding-bottom: 100%;
 }
 
 .heart-shape:before {
-    top: -25px;
+    top: -50%;
     left: 0;
 }
 
 .heart-shape:after {
-    left: 25px;
+    left: 50%;
     top: 0;
 }
 
