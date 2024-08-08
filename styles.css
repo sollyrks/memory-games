@@ -171,10 +171,10 @@ body.love-theme .color.active {
     background-color: #f50057;
 }
 
-/* Game 4 Styles */
-#game4-board {
+/* Game 3 Styles */
+#game3-board {
     display: grid;
-    gap: 1px;
+    gap: 5px; /* Adjust the gap as needed */
     justify-content: center;
     margin: 20px auto;
 }
@@ -244,7 +244,7 @@ body.love-theme .cube.wrong {
     left: 0;
 }
 
-.heart-shape:after {
+.heart-shshape:after {
     left: 25px;
     top: 0;
 }
