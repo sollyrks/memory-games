@@ -100,9 +100,9 @@ body.love-theme .code-button:hover, body.love-theme .code-submit:hover {
 /* Game 1 Styles */
 .card {
     display: inline-block;
-    width: 22%;
+    width: calc(25% - 10px);
     height: 100px;
-    margin: 1%;
+    margin: 5px;
     background-color: #0288d1;
     color: white;
     font-size: 2em;
@@ -349,13 +349,17 @@ body.love-theme .slider::-moz-range-thumb {
 /* Responsive Styles */
 @media (max-width: 600px) {
     .card, .color, .cube {
-        width: 40%;
-        height: 40%;
+        width: calc(50% - 10px); /* Adjust for smaller screens */
+        height: 100px;
         line-height: 2em;
     }
 
     nav ul li {
         display: block;
         margin: 10px 0;
+    }
+
+    main {
+        width: 95%;
     }
 }
