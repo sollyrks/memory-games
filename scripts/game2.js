@@ -5,9 +5,9 @@ function game2() {
         <div>High Score: <span id="highScoreGame2">${highScore}</span></div>
         <div class="slider-container">
             <label for="gridSize2">Grid Size: <span id="gridSizeValue2">2</span>x<span id="gridSizeValue2">2</span></label>
-            <input type="range" id="gridSize2" class="slider" min="2" max="6" value="2">
+            <input type="range" id="gridSize2" class="slider" min="2" max="10" value="2">
         </div>
-        <div id="game2-board"></div>
+        <div id="game2-board" class="grid"></div>
         <button id="startButton2">Start Game</button>
         <p id="message2"></p>
     `;
@@ -25,9 +25,6 @@ function initializeGame2() {
 
     let gridSize = gridSizeSlider.value;
     gridSizeValue.textContent = gridSize;
-    let level = 0;
-    let sequence = [];
-    let playerSequence = [];
 
     gridSizeSlider.addEventListener('input', () => {
         gridSize = gridSizeSlider.value;
@@ -38,81 +35,85 @@ function initializeGame2() {
 
     function startGame() {
         game2Board.innerHTML = '';
-        message.innerText = '';
-        level = 0;
-        sequence = [];
-        playerSequence = [];
-        const totalCells = gridSize * gridSize;
+        const totalColors = gridSize * gridSize;
+        const colors = Array.from({ length: totalColors }, (_, i) => i);
 
+        // Create the board
         game2Board.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
-        game2Board.style.gridGap = '1px';
-        game2Board.style.display = 'grid';
-
-        for (let i = 0; i < totalCells; i++) {
-            const cell = document.createElement('div');
-            cell.classList.add('color');
-            cell.dataset.index = i;
-            game2Board.appendChild(cell);
+        for (let i = 0; i < totalColors; i++) {
+            const color = document.createElement('div');
+            color.classList.add('color');
+            color.dataset.index = i;
+            game2Board.appendChild(color);
         }
 
-        nextLevel();
-    }
+        let sequence = [];
+        let playerSequence = [];
+        let level = 0;
 
-    function nextLevel() {
-        level++;
-        playerSequence = [];
-        const nextCell = Math.floor(Math.random() * (gridSize * gridSize));
-        sequence.push(nextCell);
-        showSequence();
-    }
+        function nextSequence() {
+            level++;
+            playerSequence = [];
+            const randomIndex = Math.floor(Math.random() * totalColors);
+            sequence.push(randomIndex);
+            showSequence();
+        }
 
-    function showSequence() {
-        let index = 0;
-        const interval = setInterval(() => {
-            flashCell(sequence[index]);
-            index++;
-            if (index >= sequence.length) {
-                clearInterval(interval);
-                enablePlayerInput();
+        function showSequence() {
+            let delay = 500;
+            sequence.forEach((index, i) => {
+                setTimeout(() => {
+                    const color = document.querySelector(`.color[data-index="${index}"]`);
+                    color.classList.add('active');
+                    setTimeout(() => {
+                        color.classList.remove('active');
+                    }, 500);
+                }, delay * (i + 1));
+            });
+            setTimeout(enablePlayerInput, delay * (sequence.length + 1));
+        }
+
+        function enablePlayerInput() {
+            game2Board.childNodes.forEach(color => color.addEventListener('click', handleColorClick));
+        }
+
+        function disablePlayerInput() {
+            game2Board.childNodes.forEach(color => color.removeEventListener('click', handleColorClick));
+        }
+
+        function handleColorClick(event) {
+            const index = parseInt(event.target.dataset.index);
+            playerSequence.push(index);
+            event.target.classList.add('active');
+            setTimeout(() => {
+                event.target.classList.remove('active');
+                checkPlayerSequence();
+            }, 500);
+        }
+
+        function checkPlayerSequence() {
+            const lastIndex = playerSequence.length - 1;
+            if (playerSequence[lastIndex] !== sequence[lastIndex]) {
+                message.innerText = 'Game Over! Wrong color!';
+                disablePlayerInput();
+                updateHighScore();
+                return;
             }
-        }, 1000);
-    }
-
-    function flashCell(index) {
-        const cell = document.querySelector(`[data-index="${index}"]`);
-        cell.classList.add('active');
-        setTimeout(() => {
-            cell.classList.remove('active');
-        }, 500);
-    }
-
-    function enablePlayerInput() {
-        game2Board.childNodes.forEach(cell => cell.addEventListener('click', handleColorClick));
-    }
-
-    function disablePlayerInput() {
-        game2Board.childNodes.forEach(cell => cell.removeEventListener('click', handleColorClick));
-    }
-
-    function handleColorClick(event) {
-        const index = parseInt(event.target.dataset.index);
-        playerSequence.push(index);
-
-        if (playerSequence[playerSequence.length - 1] !== sequence[playerSequence.length - 1]) {
-            message.innerText = 'Wrong sequence! Game Over!';
-            updateHighScore();
-            disablePlayerInput();
-        } else if (playerSequence.length === sequence.length) {
-            disablePlayerInput();
-            setTimeout(nextLevel, 1000);
+            if (playerSequence.length === sequence.length) {
+                disablePlayerInput();
+                nextSequence();
+            }
         }
-    }
 
-    function updateHighScore() {
-        const highScore = localStorage.getItem('highScoreGame2') || 0;
-        if (level > highScore) {
-            localStorage.setItem('highScoreGame2', level);
-            highScoreElement.textContent = level;
+        function updateHighScore() {
+            let highScore = parseInt(localStorage.getItem('highScoreGame2') || '0');
+            if (level > highScore) {
+                highScore = level;
+                localStorage.setItem('highScoreGame2', highScore);
+                highScoreElement.textContent = highScore;
+            }
         }
+
+        nextSequence();
     }
 }

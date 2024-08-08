@@ -13,7 +13,7 @@ function game3() {
             <label for="numLitCubes">Number of Lit Cubes: <span id="numLitCubesValue">12</span></label>
             <input type="range" id="numLitCubes" class="slider" min="5" max="20" value="12">
         </div>
-        <div id="game3-board"></div>
+        <div id="game3-board" class="grid"></div>
         <button id="startButton3">Start Game</button>
         <p id="message3"></p>
     `;

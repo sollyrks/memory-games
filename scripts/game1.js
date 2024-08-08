@@ -5,10 +5,11 @@ function game1() {
         <div>High Score: <span id="highScoreGame1">${highScore}</span></div>
         <div class="slider-container">
             <label for="gridSize1">Grid Size: <span id="gridSizeValue1">4</span>x<span id="gridSizeValue1">4</span></label>
-            <input type="range" id="gridSize1" class="slider" min="2" max="6" value="4">
+            <input type="range" id="gridSize1" class="slider" min="2" max="10" value="4">
         </div>
-        <div id="game1-board"></div>
+        <div id="game1-board" class="grid"></div>
         <button id="startButton1">Start Game</button>
+        <p id="message1"></p>
     `;
     setTimeout(initializeGame1, 0); // Delay to allow DOM update
     return gameHTML;
@@ -17,13 +18,13 @@ function game1() {
 function initializeGame1() {
     const game1Board = document.getElementById('game1-board');
     const startButton = document.getElementById('startButton1');
+    const message = document.getElementById('message1');
     const gridSizeSlider = document.getElementById('gridSize1');
     const gridSizeValue = document.getElementById('gridSizeValue1');
     const highScoreElement = document.getElementById('highScoreGame1');
 
     let gridSize = gridSizeSlider.value;
     gridSizeValue.textContent = gridSize;
-    let moves = 0;
 
     gridSizeSlider.addEventListener('input', () => {
         gridSize = gridSizeSlider.value;
@@ -34,72 +35,73 @@ function initializeGame1() {
 
     function startGame() {
         game1Board.innerHTML = '';
-        moves = 0;
         const totalCards = gridSize * gridSize;
-        const cards = [];
-        for (let i = 0; i < totalCards / 2; i++) {
-            cards.push(i);
-            cards.push(i);
+        const cardValues = [];
+        for (let i = 1; i <= totalCards / 2; i++) {
+            cardValues.push(i, i);
         }
-        let shuffledCards = cards.sort(() => 0.5 - Math.random());
+        cardValues.sort(() => Math.random() - 0.5);
+
+        // Create the board
+        game1Board.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
+        for (let i = 0; i < totalCards; i++) {
+            const card = document.createElement('div');
+            card.classList.add('card');
+            card.dataset.value = cardValues[i];
+            card.innerHTML = '<span>?</span>';
+            game1Board.appendChild(card);
+        }
+
         let firstCard = null;
         let secondCard = null;
-        let lockBoard = false;
+        let matches = 0;
 
-        game1Board.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
-        game1Board.style.gridGap = '1px';
-        game1Board.style.display = 'grid';
+        game1Board.childNodes.forEach(card => card.addEventListener('click', handleCardClick));
 
-        shuffledCards.forEach(card => {
-            const cardElement = document.createElement('div');
-            cardElement.classList.add('card');
-            cardElement.dataset.card = card;
-            cardElement.innerHTML = `<span>?</span>`;
-            cardElement.addEventListener('click', flipCard);
-            game1Board.appendChild(cardElement);
-        });
+        function handleCardClick(event) {
+            if (firstCard && secondCard) return;
 
-        function flipCard() {
-            if (lockBoard) return;
-            if (this === firstCard) return;
+            const clickedCard = event.target;
+            if (!clickedCard.classList.contains('card')) return;
 
-            this.innerHTML = `<span>${this.dataset.card}</span>`;
+            clickedCard.innerHTML = `<span>${clickedCard.dataset.value}</span>`;
+            clickedCard.classList.add('flipped');
 
             if (!firstCard) {
-                firstCard = this;
-                return;
+                firstCard = clickedCard;
+            } else {
+                secondCard = clickedCard;
+                checkForMatch();
             }
+        }
 
-            secondCard = this;
-            lockBoard = true;
-
-            if (firstCard.dataset.card === secondCard.dataset.card) {
+        function checkForMatch() {
+            if (firstCard.dataset.value === secondCard.dataset.value) {
                 firstCard = null;
                 secondCard = null;
-                lockBoard = false;
-                checkWin();
+                matches++;
+                if (matches === totalCards / 2) {
+                    updateHighScore();
+                    message.innerText = 'Congratulations! You matched all pairs!';
+                }
             } else {
                 setTimeout(() => {
-                    firstCard.innerHTML = `<span>?</span>`;
-                    secondCard.innerHTML = `<span>?</span>`;
+                    firstCard.innerHTML = '<span>?</span>';
+                    secondCard.innerHTML = '<span>?</span>';
+                    firstCard.classList.remove('flipped');
+                    secondCard.classList.remove('flipped');
                     firstCard = null;
                     secondCard = null;
-                    lockBoard = false;
                 }, 1000);
             }
         }
 
-        function checkWin() {
-            moves++;
-            const allCards = Array.from(document.getElementsByClassName('card'));
-            const matchedCards = allCards.filter(card => card.innerHTML !== `<span>?</span>`);
-            if (matchedCards.length === totalCards) {
-                const highScore = localStorage.getItem('highScoreGame1') || 0;
-                if (moves < highScore || highScore === 0) {
-                    localStorage.setItem('highScoreGame1', moves);
-                    highScoreElement.textContent = moves;
-                }
-                alert(`You won in ${moves} moves!`);
+        function updateHighScore() {
+            let highScore = parseInt(localStorage.getItem('highScoreGame1') || '0');
+            if (matches > highScore) {
+                highScore = matches;
+                localStorage.setItem('highScoreGame1', highScore);
+                highScoreElement.textContent = highScore;
             }
         }
     }
