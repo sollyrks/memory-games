@@ -177,6 +177,8 @@ body.love-theme .color.active {
     gap: 5px; /* Adjust the gap as needed */
     justify-content: center;
     margin: 20px auto;
+    width: 100%;
+    max-width: 800px;
 }
 
 .cube {
@@ -244,7 +246,7 @@ body.love-theme .cube.wrong {
     left: 0;
 }
 
-.heart-shshape:after {
+.heart-shape:after {
     left: 25px;
     top: 0;
 }
